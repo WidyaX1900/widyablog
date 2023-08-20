@@ -62,10 +62,12 @@
             </div>
             <div class="blog-search mt-5">
                 <h2>Search Post</h2>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Search Post..." aria-label="Recipient's username" aria-describedby="basic-addon2">
-                    <button type="submit" class="btn btn-primary btn-sm" id="basic-addon2">Search</button>
-                </div>
+                <form action="" method="post">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Search Post..." aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <button type="submit" class="btn btn-primary btn-sm" id="basic-addon2">Search</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

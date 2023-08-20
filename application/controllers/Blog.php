@@ -11,4 +11,13 @@ class Blog extends CI_Controller
         $this->load->view('blog/index');
         $this->load->view('templates/footer');
     }
+
+    public function single()
+    {
+        $data['title'] = 'Single Page';
+        $data['page'] = 'blog';
+        $this->load->view('templates/header', $data);
+        $this->load->view('blog/single');
+        $this->load->view('templates/footer');
+    }
 }

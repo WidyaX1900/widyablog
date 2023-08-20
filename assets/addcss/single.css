@@ -1,0 +1,31 @@
+.single-content {
+	margin-top: 10%;
+}
+
+.single-content .single-thumbnail {
+	width: 100%;
+}
+
+.single-content .single-thumbnail img {
+	width: 100%;
+}
+
+.single-content .content .content-description p {
+	font-size: 1.2rem;
+}
+
+.single-content .suggested-post .single-card .blog-post .thumbnail {
+	width: 100%;
+}
+
+.single-content .suggested-post .single-card .blog-post .thumbnail img {
+	width: 100%;
+}
+
+.single-content .single-comment .username {
+	transform: translate(-40px, 10px);
+}
+
+.single-content .single-comment h5 {
+	font-size: 1.8rem;
+}
