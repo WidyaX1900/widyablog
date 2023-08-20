@@ -1,0 +1,16 @@
+/* Navbar CSS */
+nav .navbar-left {
+	width: 75%;
+}
+
+nav .navbar-right ul {
+	width: 90%;
+}
+
+nav .navbar-right ul a {
+	color: #2d2d2d58;
+}
+
+nav .navbar-right ul a:hover {
+	color: #2d2d2d;
+}

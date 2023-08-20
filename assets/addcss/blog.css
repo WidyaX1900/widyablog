@@ -1,0 +1,39 @@
+.blog-hero {
+	width: 100%;
+	height: 60vh;
+	background-image: url("http://localhost/widyablog/assets/img/blog-hero.jpg");
+}
+
+.blog-hero .blog-overlay {
+	width: 100%;
+	height: 100%;
+	background-image: linear-gradient(rgb(17, 17, 17), rgba(0, 0, 0, 0));
+	color: #f0f0f0;
+}
+
+.blog-hero .blog-overlay header h1 {
+	font-size: 4rem;
+}
+
+.blogs .blog-post .thumbnail {
+	width: 40%;
+}
+
+.blogs .blog-post .thumbnail img {
+	width: 100%;
+}
+
+.blogs .blog-post .blog-desc a {
+	color: #2d2d2d;
+	text-decoration: none;
+	transition: 0.3s;
+}
+
+.blogs .blog-post .blog-desc a:hover {
+	color: #2d2d2d9a;
+}
+
+.blogs .blog-post .blog-desc p {
+	height: 95px;
+	overflow: hidden;
+}

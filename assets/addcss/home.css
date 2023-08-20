@@ -1,0 +1,86 @@
+/* Home Page CSS */
+.hero-section {
+	background-image: url("http://localhost/widyablog/assets/img/hero.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+.hero-section .overlay {
+	width: 100%;
+	height: 100%;
+	background-image: linear-gradient(rgb(23, 23, 23), rgba(0, 0, 0, 0));
+	color: #e6e6e6;
+}
+
+.hero-section .overlay header h1 {
+	font-size: 5.5rem;
+}
+
+.hero-section .overlay p {
+	font-size: 1.6rem;
+}
+
+.hero-section .overlay button {
+	font-size: 18px;
+	width: 14em;
+	height: 4.5em;
+	background-color: #f0f0f0;
+	border-radius: 4px;
+	border: none;
+	transition: 0.3s;
+}
+
+.hero-section .overlay button:hover {
+	background-color: #2d2d2d;
+	color: white;
+}
+
+.hero-section .overlay button:active {
+	background-color: #3c3c3c;
+}
+
+.hero-section .overlay button span {
+	transform: translate(-1px, 20%);
+}
+
+.latest-post header h2 {
+	font-size: 2.5rem;
+}
+
+.latest-post .posts .thumbnail {
+	width: 100%;
+}
+
+.latest-post .posts .thumbnail img {
+	width: 100%;
+}
+
+.latest-post .posts .post-card a {
+	color: #2d2d2d;
+	text-decoration: none;
+	transition: 0.3s;
+}
+
+.latest-post .posts .post-card a:hover {
+	color: #2d2d2da9;
+}
+
+.category header h2 {
+	font-size: 2.5rem;
+}
+
+.category .categories .category-card .thumbnail {
+	width: 90%;
+}
+
+.category .categories .thumbnail img {
+	width: 100%;
+}
+
+.category .categories .category-card a {
+	color: #2d2d2d;
+	text-decoration: none;
+	transition: 0.3s;
+}
