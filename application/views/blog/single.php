@@ -3,22 +3,14 @@
 
         <section class="col-lg-9 content">
             <header>
-                <h1 class="text-center">Legend of Tangkuban Perahu</h1>
+                <h1 class="text-center"><?= $post[0]->title; ?></h1>
             </header>
             <div class="single-thumbnail mt-4">
-                <img src="<?= base_url('assets/'); ?>img/mount.jpg" alt="thumbnail">
+                <img src="<?= base_url('assets/'); ?>thumbnail/<?= $post[0]->thumbnail; ?>" alt="thumbnail">
             </div>
             <div class="content-description mt-3">
                 <p>
-                    Tangkuban Perahu is a volcanic mountain in Indonesia, with a legend surrounding its formation. According to the story, a beautiful woman named Dayang Sumbi angered a dog that possessed supernatural powers. To escape its wrath, she promised to marry it once she finished weaving a cloth. Desperate to avoid this, she sought the help of Sangkuriang, her son from a previous marriage. He unwittingly fell in love with her and sought her hand in marriage.
-                </p>
-
-                <p>
-                    To prevent their union, Dayang Sumbi challenged Sangkuriang to build a boat and a lake overnight. With the help of spirits, he almost completed the task. Seeing this, Dayang Sumbi tricked him into thinking it was morning, causing him to fail. In anger, Sangkuriang kicked the boat, which became Tangkuban Perahu, meaning "upturned boat" in Sundanese.
-                </p>
-
-                <p>
-                    The story's tragic ending highlights themes of fate, love, and the consequences of breaking promises.
+                    <?= $post[0]->content; ?>
                 </p>
             </div>
         </section>
@@ -27,26 +19,18 @@
                 <h3>Other Post</h3>
             </header>
             <div class="row single-card mt-3">
-                <div class="col-lg-12 blog-post mb-4">
-                    <div class="thumbnail">
-                        <img src="<?= base_url('assets/'); ?>img/samurai.jpg" alt="thumbnail">
+                <?php foreach ($suggest as $suggested) : ?>
+                    <div class="col-lg-12 blog-post mb-4">
+                        <div class="thumbnail">
+                            <img src="<?= base_url('assets/'); ?>thumbnail/<?= $suggested->thumbnail; ?>" alt="thumbnail">
+                        </div>
+                        <a href="<?= base_url(); ?>blog/single/<?= $suggested->id; ?>" class="text-decoration-none text-dark">
+                            <header>
+                                <h5><?= $suggested->title; ?></h5>
+                            </header>
+                        </a>
                     </div>
-                    <a href="" class="text-decoration-none text-dark">
-                        <header>
-                            <h5>Bushido - Principles of Samurai</h5>
-                        </header>
-                    </a>
-                </div>
-                <div class="col-lg-12 blog-post mb-4">
-                    <div class="thumbnail">
-                        <img src="<?= base_url('assets/'); ?>img/prambanan.jpg" alt="thumbnail">
-                    </div>
-                    <a href="" class="text-decoration-none text-dark">
-                        <header>
-                            <h5>Story of Candi Prambanan</h5>
-                        </header>
-                    </a>
-                </div>
+                <?php endforeach; ?>
             </div>
         </section>
     </section>
