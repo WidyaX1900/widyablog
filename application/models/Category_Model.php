@@ -20,4 +20,20 @@ class Category_Model extends CI_Model
 
         return $query->result();
     }
+
+    public function getCategoryNotById($id)
+    {
+        $this->db->where('id !=', $id);
+        $query = $this->db->get('categories');
+
+        return $query->result();
+    }
+
+    public function getCategoryById($id)
+    {
+        $this->db->where('id', $id);
+        $query = $this->db->get('categories');
+
+        return $query->result();
+    }
 }

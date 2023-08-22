@@ -45,4 +45,19 @@ class Post_Model extends CI_Model
 
         return $query->result();
     }
+
+    public function updatePost($id, $data)
+    {
+        $this->db->where('id', $id);
+        $this->db->update('posts', $data);
+    }
+
+    public function searchPost($keyword)
+    {
+        $this->db->like('title', $keyword, 'both');
+        $this->db->order_by('id', 'DESC');
+        $query = $this->db->get('posts');
+
+        return $query->result();
+    }
 }

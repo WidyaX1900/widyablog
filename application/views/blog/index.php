@@ -43,9 +43,9 @@
             </div>
             <div class="blog-search mt-5">
                 <h2>Search Post</h2>
-                <form action="" method="post">
+                <form action="<?= base_url(); ?>blog/search/" method="get">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Search Post..." aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <input type="text" class="form-control" placeholder="Search Post..." aria-label="Recipient's username" aria-describedby="basic-addon2" name="keyword">
                         <button type="submit" class="btn btn-primary btn-sm" id="basic-addon2">Search</button>
                     </div>
                 </form>
