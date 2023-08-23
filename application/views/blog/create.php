@@ -10,10 +10,13 @@
 
 <body>
     <section class="container mt-5">
+        <div class="mb-3">
+            <a href="<?= base_url(); ?>auth/post/" class="btn btn-sm btn-primary">Back</a>
+        </div>
         <header>
             <h1>Create a Post</h1>
         </header>
-        <div class="col-lg-12 mt-4">
+        <div class="col-lg-12 mt-4 mb-3">
             <form action="<?= base_url(); ?>blog/store/" method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-lg-6">

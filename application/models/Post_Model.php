@@ -60,4 +60,12 @@ class Post_Model extends CI_Model
 
         return $query->result();
     }
+
+    public function postCount()
+    {
+        $this->db->order_by('id', 'DESC');
+        $query = $this->db->get('posts');
+
+        return $query->num_rows();
+    }
 }
