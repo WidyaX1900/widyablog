@@ -22,9 +22,11 @@ class Auth extends CI_Controller
     public function post()
     {
         $data['title'] = 'post';
+        $data['posts'] = $this->posts->getPost();
+        $data['categories'] = $this->posts->postCategory();
 
         $this->load->view('auth/header', $data);
-        $this->load->view('auth/post');
+        $this->load->view('auth/post', $data);
         $this->load->view('auth/footer');
     }
 }

@@ -169,7 +169,7 @@ class Blog extends CI_Controller
                 'thumbnail' => $file,
                 'title' => htmlspecialchars($this->input->post('title')),
                 'content' => htmlspecialchars($this->input->post('content')),
-                'date' => date("F j, Y, g:i a"),
+                'date' => $this->input->post('date'),
                 'category_id' => $this->input->post('category_id'),
                 'user_id' => 1
 

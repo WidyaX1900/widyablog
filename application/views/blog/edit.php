@@ -10,6 +10,7 @@
 
 <body>
     <section class="container mt-5">
+        <a href="<?= base_url(); ?>auth/post/" class="btn btn-sm btn-primary mb-3">Back</a>
         <header>
             <h1>Edit a Post</h1>
         </header>
@@ -20,6 +21,7 @@
         <div class="col-lg-12 mt-4">
             <form action="<?= base_url(); ?>blog/update/<?= $post[0]->id; ?>" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="defaultThumbnail" value="<?= $post[0]->thumbnail; ?>">
+                <input type="hidden" name="date" value="<?= $post[0]->date; ?>">
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="mb-4">
