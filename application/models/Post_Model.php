@@ -80,4 +80,9 @@ class Post_Model extends CI_Model
 
         return $query->result();
     }
+
+    public function deletePost($id)
+    {
+        $this->db->delete('posts', ['id' => $id]);
+    }
 }

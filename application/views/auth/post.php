@@ -5,6 +5,11 @@
 </div>
 
 <div class="mt-2">
+    <?php if ($this->session->flashdata('success')) : ?>
+        <div class="alert alert-success" role="alert">
+            <strong><?= $this->session->flashdata('result'); ?></strong> <?= $this->session->flashdata('action'); ?>
+        </div>
+    <?php endif; ?>
     <table class="table">
         <thead>
             <tr class="table-primary">
@@ -25,9 +30,9 @@
                     <td><?= $post->date; ?></td>
                     <td><?= $categories[$categoryIndex]->name; ?></td>
                     <td>
-                        <a href="<?= base_url(); ?>blog/single/<?= $post->id; ?>" class="btn btn-primary btn-sm">View</a>
+                        <a href="<?= base_url(); ?>blog/single/<?= $post->id; ?>" class="btn btn-primary btn-sm" target="_blank">View</a>
                         <a href="<?= base_url(); ?>blog/show/<?= $post->id; ?>" class="btn btn-warning btn-sm mx-3">Edit</a>
-                        <a href="" class="btn btn-danger btn-sm">Delete</a>
+                        <a href="<?= base_url(); ?>blog/delete/<?= $post->id; ?>" class="btn btn-danger btn-sm">Delete</a>
                     </td>
                 </tr>
                 <?php $i++; ?>

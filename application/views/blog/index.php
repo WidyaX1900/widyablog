@@ -6,11 +6,6 @@
     </div>
 </section>
 <section class="container mt-4">
-    <?php if ($this->session->flashdata('success')) : ?>
-        <div class="alert alert-success" role="alert">
-            <strong><?= $this->session->flashdata('result'); ?></strong> <?= $this->session->flashdata('action'); ?>
-        </div>
-    <?php endif; ?>
     <div class="row blogs">
         <div class="col-lg-9">
             <?php foreach ($post as $posts) : ?>

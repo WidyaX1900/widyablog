@@ -29,4 +29,18 @@ class Auth extends CI_Controller
         $this->load->view('auth/post', $data);
         $this->load->view('auth/footer');
     }
+
+    public function register()
+    {
+        $this->load->view('forms/register');
+    }
+
+    public function login()
+    {
+        $this->load->view('forms/login');
+    }
+
+    public function create_account()
+    {
+    }
 }

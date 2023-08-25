@@ -87,7 +87,7 @@ class Blog extends CI_Controller
             $this->session->set_flashdata('success', 'success');
             $this->session->set_flashdata('result', 'Successful');
             $this->session->set_flashdata('action', 'Add a Post');
-            return redirect('/blog');
+            return redirect('/auth/post/');
         }
     }
 
@@ -180,7 +180,7 @@ class Blog extends CI_Controller
             $this->session->set_flashdata('success', 'success');
             $this->session->set_flashdata('result', 'Successful');
             $this->session->set_flashdata('action', 'Edit a Post');
-            return redirect('/blog');
+            return redirect('/auth/post/');
         }
     }
 
@@ -199,5 +199,32 @@ class Blog extends CI_Controller
             $this->load->view('blog/index');
             $this->load->view('templates/footer');
         }
+    }
+
+    public function delete($id)
+    {
+        $data['title'] = 'post';
+        $data['posts'] = $this->posts->getPostById($id);
+
+        $this->load->view('auth/header', $data);
+        $this->load->view('blog/delete', $data);
+        $this->load->view('auth/footer');
+    }
+
+    public function destroy($id)
+    {
+        $query = $this->posts->getPostById($id);
+
+        if (file_exists('./assets/thumbnail/' . $query[0]->thumbnail)) {
+            unlink('./assets/thumbnail/' . $query[0]->thumbnail);
+        }
+
+        $this->posts->deletePost($id);
+
+
+        $this->session->set_flashdata('success', 'success');
+        $this->session->set_flashdata('result', 'Successful');
+        $this->session->set_flashdata('action', 'Delete a Post');
+        return redirect('/auth/post/');
     }
 }
