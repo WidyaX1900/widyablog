@@ -17,6 +17,7 @@
 
     <!-- Custom styles for this template-->
     <link href="<?= base_url('assets/css/'); ?>sb-admin-2.min.css" rel="stylesheet">
+    <link href="<?= base_url('assets/css/'); ?>bootstrap.css" rel="stylesheet">
 
 </head>
 
@@ -33,21 +34,33 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
-                            <form class="user">
+                            <form class="user" method="post" action="<?= base_url(); ?>auth/create_account">
                                 <div class="form-group row">
                                     <div class="col-sm mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="First Name">
+                                        <input type="text" class="form-control form-control-user" id="name" placeholder="Full Name" name="name" value="<?= set_value('name'); ?>">
+                                        <div class="mt-2">
+                                            <small class="text-danger fst-italic"><?= form_error('name'); ?></small>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address">
+                                    <input type="text" class="form-control form-control-user" id="email" placeholder="Email Address" name="email">
+                                    <div class="mt-2" value="<?= set_value('email'); ?>">
+                                        <small class="text-danger fst-italic"><?= form_error('email'); ?></small>
+                                    </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                                        <input type="password" class="form-control form-control-user" id="password" placeholder="Password" name="password">
+                                        <div class="mt-2" value="<?= set_value('password'); ?>">
+                                            <small class="text-danger fst-italic"><?= form_error('password'); ?></small>
+                                        </div>
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">
+                                        <input type="password" class="form-control form-control-user" id="confirm" placeholder="Repeat Password" name="confirm">
+                                        <div class="mt-2" value="<?= set_value('confirm'); ?>">
+                                            <small class="text-danger fst-italic"><?= form_error('confirm'); ?></small>
+                                        </div>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-user btn-block">

@@ -65,6 +65,21 @@
                         </div>
                     </div>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="<?= base_url(); ?>auth/logout/">
+                        <span class="material-symbols-rounded">
+                            logout
+                        </span>
+                        <span>Logout</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Custom Components:</h6>
+                            <a class="collapse-item" href="buttons.html">Buttons</a>
+                            <a class="collapse-item" href="cards.html">Cards</a>
+                        </div>
+                    </div>
+                </li>
             <?php else : ?>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= base_url(); ?>auth/">
@@ -84,6 +99,21 @@
                             edit
                         </span>
                         <span>Post</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Custom Components:</h6>
+                            <a class="collapse-item" href="buttons.html">Buttons</a>
+                            <a class="collapse-item" href="cards.html">Cards</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="<?= base_url(); ?>auth/logout/">
+                        <span class="material-symbols-rounded">
+                            logout
+                        </span>
+                        <span>Logout</span>
                     </a>
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
@@ -184,9 +214,16 @@
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="<?= base_url(); ?>" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" target="_blank">
+                                <span class="material-symbols-rounded mr-1">
+                                    language
+                                </span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Visit Site</span>
+                            </a>
+                        <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Hello, Admin</span>
-                                <img class="img-profile rounded-circle" src="<?= base_url('assets/img/'); ?>samurai.jpg">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Hello, <?= $this->session->userdata('name'); ?></span>
+                                <img class="img-profile rounded-circle" src="<?= base_url('assets/img/'); ?><?= $this->session->userdata('profile'); ?>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
