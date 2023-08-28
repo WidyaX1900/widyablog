@@ -35,6 +35,11 @@
                                 <h1 class="h4 text-gray-900 mb-4">Login to Widya Blog</h1>
                             </div>
                             <form class="user" method="post" action="<?= base_url(); ?>auth/login_account">
+                                <?php if ($this->session->flashdata('logout')) : ?>
+                                    <div class="alert alert-success mb-3" role="alert">
+                                        <?= $this->session->flashdata('message'); ?>
+                                    </div>
+                                <?php endif; ?>
                                 <?php if ($this->session->flashdata('success')) : ?>
                                     <div class="alert alert-success mb-3" role="alert">
                                         <strong><?= $this->session->flashdata('result'); ?></strong> <?= $this->session->flashdata('action'); ?>

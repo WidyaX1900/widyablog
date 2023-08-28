@@ -121,7 +121,9 @@ class Auth extends CI_Controller
 
             ];
 
-            $this->users->insertUser($data);
+            // $this->users->insertUser($data);
+
+            $this->send_email();
 
             $this->session->set_flashdata('success', 'success');
             $this->session->set_flashdata('result', 'Successful');
@@ -204,6 +206,38 @@ class Auth extends CI_Controller
         $this->session->unset_userdata('name', $userData['name']);
         $this->session->unset_userdata('role', $userData['role_id']);
 
+        $this->session->set_flashdata('logout', 'Logout Success');
+        $this->session->set_flashdata('message', 'You"ve been logged out');
         return redirect('auth/login');
+    }
+
+    private function send_email()
+    {
+        $config = [
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_user' => 'widyablog26@gmail.com',
+            'smtp_pass' => 'zbexthvufrwsqyrn',
+            'smtp_port' => 465,
+            'mailtype' => 'hmtl',
+            'charset' => 'utf-8',
+            'newline' => "\r\n"
+        ];
+
+        $this->load->library('email');
+        $this->email->initialize($config);
+
+        $this->email->from('widyablog26@gmail.com', 'Admin Widya Blog');
+        $this->email->to('ranggawidyasastra@gmail.com');
+        $this->email->subject('Test email');
+        $this->email->message('Test email with google smtp');
+
+        if ($this->email->send()) {
+            echo "Success";
+            die;
+        } else {
+            echo $this->email->print_debugger();
+            die;
+        }
     }
 }

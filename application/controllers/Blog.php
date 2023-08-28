@@ -37,6 +37,11 @@ class Blog extends CI_Controller
 
     public function create()
     {
+        if (!$this->session->userdata('name')) {
+            return redirect('auth/login');
+            die;
+        }
+
         $data['category'] = $this->categories->getCategory();
 
         $this->load->view('blog/create', $data);
@@ -44,6 +49,11 @@ class Blog extends CI_Controller
 
     public function store()
     {
+        if (!$this->session->userdata('name')) {
+            return redirect('auth/login');
+            die;
+        }
+
         $config =
             [
                 [
@@ -91,7 +101,7 @@ class Blog extends CI_Controller
         }
     }
 
-    public function upload()
+    private function upload()
     {
         $fileName = '';
 
@@ -118,6 +128,11 @@ class Blog extends CI_Controller
 
     public function show($id)
     {
+        if (!$this->session->userdata('name')) {
+            return redirect('auth/login');
+            die;
+        }
+
         $query = $this->posts->getPostById($id);
 
         $data['post'] = $query;
@@ -131,6 +146,11 @@ class Blog extends CI_Controller
 
     public function update($id)
     {
+        if (!$this->session->userdata('name')) {
+            return redirect('auth/login');
+            die;
+        }
+
         $file = $this->input->post('defaultThumbnail');
 
         if ($_FILES['thumbnail']['error'] === 0) {
@@ -186,6 +206,11 @@ class Blog extends CI_Controller
 
     public function search()
     {
+        if (!$this->session->userdata('name')) {
+            return redirect('auth/login');
+            die;
+        }
+
         if ($this->input->get('keyword') === '') {
             redirect('/blog');
         } else {
@@ -203,6 +228,11 @@ class Blog extends CI_Controller
 
     public function delete($id)
     {
+        if (!$this->session->userdata('name')) {
+            return redirect('auth/login');
+            die;
+        }
+
         $data['title'] = 'post';
         $data['posts'] = $this->posts->getPostById($id);
 
@@ -213,6 +243,11 @@ class Blog extends CI_Controller
 
     public function destroy($id)
     {
+        if (!$this->session->userdata('name')) {
+            return redirect('auth/login');
+            die;
+        }
+
         $query = $this->posts->getPostById($id);
 
         if (file_exists('./assets/thumbnail/' . $query[0]->thumbnail)) {
