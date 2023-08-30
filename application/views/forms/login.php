@@ -22,7 +22,6 @@
 </head>
 
 <body class="bg-gradient-primary">
-
     <div class="container">
 
         <div class="card o-hidden border-0 shadow-lg my-5 w-50 mx-auto">
@@ -70,6 +69,9 @@
                                 <hr>
                             </form>
                             <div class="text-center">
+                                <div class="mb-0">
+                                    <a class="small" href="#">Forgot Password?</a>
+                                </div>
                                 <a class="small" href="<?= base_url(); ?>auth/register/">Don't have an account? Register Now!</a>
                             </div>
                         </div>

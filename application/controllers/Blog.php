@@ -37,7 +37,7 @@ class Blog extends CI_Controller
 
     public function create()
     {
-        if (!$this->session->userdata('name')) {
+        if (!$this->session->userdata('userData')) {
             return redirect('auth/login');
             die;
         }
@@ -49,7 +49,7 @@ class Blog extends CI_Controller
 
     public function store()
     {
-        if (!$this->session->userdata('name')) {
+        if (!$this->session->userdata('userData')) {
             return redirect('auth/login');
             die;
         }
@@ -88,7 +88,7 @@ class Blog extends CI_Controller
                 'content' => htmlspecialchars($this->input->post('content')),
                 'date' => date("F j, Y, g:i a"),
                 'category_id' => $this->input->post('category_id'),
-                'user_id' => 1
+                'user_id' => $this->session->userdata('userData')[0]->id
 
             ];
 
@@ -128,7 +128,7 @@ class Blog extends CI_Controller
 
     public function show($id)
     {
-        if (!$this->session->userdata('name')) {
+        if (!$this->session->userdata('userData')) {
             return redirect('auth/login');
             die;
         }
@@ -146,7 +146,7 @@ class Blog extends CI_Controller
 
     public function update($id)
     {
-        if (!$this->session->userdata('name')) {
+        if (!$this->session->userdata('userData')) {
             return redirect('auth/login');
             die;
         }
@@ -206,7 +206,7 @@ class Blog extends CI_Controller
 
     public function search()
     {
-        if (!$this->session->userdata('name')) {
+        if (!$this->session->userdata('userData')) {
             return redirect('auth/login');
             die;
         }
@@ -228,7 +228,7 @@ class Blog extends CI_Controller
 
     public function delete($id)
     {
-        if (!$this->session->userdata('name')) {
+        if (!$this->session->userdata('userData')) {
             return redirect('auth/login');
             die;
         }
@@ -243,7 +243,7 @@ class Blog extends CI_Controller
 
     public function destroy($id)
     {
-        if (!$this->session->userdata('name')) {
+        if (!$this->session->userdata('userData')) {
             return redirect('auth/login');
             die;
         }

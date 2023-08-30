@@ -1,243 +1,301 @@
-<?php
-defined('BASEPATH') or exit('No direct script access allowed');
+a<?php
+    defined('BASEPATH') or exit('No direct script access allowed');
 
-class Auth extends CI_Controller
-{
-    public function __construct()
+    class Auth extends CI_Controller
     {
-        parent::__construct();
-        $this->load->model('post_model', 'posts');
-        $this->load->model('user_model', 'users');
-    }
-
-    public function index()
-    {
-        if (!$this->session->userdata('name')) {
-            return redirect('auth/login');
-            die;
+        public function __construct()
+        {
+            parent::__construct();
+            $this->load->model('post_model', 'posts');
+            $this->load->model('user_model', 'users');
         }
 
-        $data['title'] = 'index';
-        $data['post'] = $this->posts->postCount();
+        public function index()
+        {
+            if (!$this->session->userdata('userData')) {
+                return redirect('auth/login');
+                die;
+            }
 
-        $this->load->view('auth/header', $data);
-        $this->load->view('auth/index');
-        $this->load->view('auth/footer');
-    }
+            $data['title'] = 'index';
+            $data['post'] = $this->posts->postCount();
 
-    public function post()
-    {
-        if (!$this->session->userdata('name')) {
-            return redirect('auth/login');
-            die;
+            $this->load->view('auth/header', $data);
+            $this->load->view('auth/index');
+            $this->load->view('auth/footer');
         }
 
-        $data['title'] = 'post';
-        $data['posts'] = $this->posts->getPost();
-        $data['categories'] = $this->posts->postCategory();
+        public function post()
+        {
+            if (!$this->session->userdata('userData')) {
+                return redirect('auth/login');
+                die;
+            }
 
-        $this->load->view('auth/header', $data);
-        $this->load->view('auth/post', $data);
-        $this->load->view('auth/footer');
-    }
+            $data['title'] = 'post';
+            $data['posts'] = $this->posts->getPost();
+            $data['categories'] = $this->posts->postCategory();
 
-    public function register()
-    {
-        if ($this->session->userdata('name')) {
-            return redirect('auth');
-            die;
+            $this->load->view('auth/header', $data);
+            $this->load->view('auth/post', $data);
+            $this->load->view('auth/footer');
         }
 
-        $this->load->view('forms/register');
-    }
+        public function register()
+        {
+            if ($this->session->userdata('name')) {
+                return redirect('auth');
+                die;
+            }
 
-    public function login()
-    {
-        if ($this->session->userdata('name')) {
-            return redirect('auth');
-            die;
+            $this->load->view('forms/register');
         }
 
-        $this->load->view('forms/login');
-    }
+        public function login()
+        {
+            if ($this->session->userdata('userData')) {
+                return redirect('auth');
+                die;
+            }
 
-    public function create_account()
-    {
-        $config =
-            [
-                [
-                    'field' => 'name',
-                    'label' => 'Full Name',
-                    'rules' => 'required|trim',
-                    'errors' => [
-                        'required' => 'Please enter your Full Name'
-                    ]
-                ],
-                [
-                    'field' => 'email',
-                    'label' => 'E-mail',
-                    'rules' => 'required|valid_email|is_unique[users.email]|trim',
-                    'errors' => [
-                        'required' => 'Please enter your E-mail',
-                        'is_unique' => 'This e-mail already registered'
-                    ]
-                ],
-                [
-                    'field' => 'password',
-                    'label' => 'Password',
-                    'rules' => 'required|min_length[6]|matches[confirm]',
-                    'errors' => [
-                        'required' => 'Please enter a password',
-                        'min_length' => 'Password too short',
-                        'matches' => 'Password not match'
-                    ]
-                ],
-                [
-                    'field' => 'confirm',
-                    'label' => 'Confirm',
-                    'rules' => 'required|min_length[6]|matches[password]',
-                    'errors' => [
-                        'required' => 'Please retype your password',
-                        'min_length' => 'Password too short',
-                        'matches' => 'Password not match',
-                    ]
-                ],
-
-            ];
-
-        $this->form_validation->set_rules($config);
-
-        if (!$this->form_validation->run()) {
-            $this->register();
-        } else {
-
-            $data = [
-                'name' => htmlspecialchars($this->input->post('name')),
-                'email' => htmlspecialchars($this->input->post('email')),
-                'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
-                'status' => 'verify',
-                'photo' => 'default.png',
-                'role_id' => 2
-
-            ];
-
-            // $this->users->insertUser($data);
-
-            $this->send_email();
-
-            $this->session->set_flashdata('success', 'success');
-            $this->session->set_flashdata('result', 'Successful');
-            $this->session->set_flashdata('action', 'Create an account');
-            return redirect('auth/login');
+            $this->load->view('forms/login');
         }
-    }
 
-    public function login_account()
-    {
-        $config =
-            [
+        public function create_account()
+        {
+            $config =
                 [
-                    'field' => 'email',
-                    'label' => 'E-mail',
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => 'Please enter your E-mail'
-                    ]
-                ],
-                [
-                    'field' => 'password',
-                    'label' => 'Password',
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => 'Please enter a password'
-                    ]
-                ]
+                    [
+                        'field' => 'name',
+                        'label' => 'Full Name',
+                        'rules' => 'required|trim',
+                        'errors' => [
+                            'required' => 'Please enter your Full Name'
+                        ]
+                    ],
+                    [
+                        'field' => 'email',
+                        'label' => 'E-mail',
+                        'rules' => 'required|valid_email|is_unique[users.email]|trim',
+                        'errors' => [
+                            'required' => 'Please enter your E-mail',
+                            'is_unique' => 'This e-mail already registered'
+                        ]
+                    ],
+                    [
+                        'field' => 'password',
+                        'label' => 'Password',
+                        'rules' => 'required|min_length[6]|matches[confirm]',
+                        'errors' => [
+                            'required' => 'Please enter a password',
+                            'min_length' => 'Password too short',
+                            'matches' => 'Password not match'
+                        ]
+                    ],
+                    [
+                        'field' => 'confirm',
+                        'label' => 'Confirm',
+                        'rules' => 'required|min_length[6]|matches[password]',
+                        'errors' => [
+                            'required' => 'Please retype your password',
+                            'min_length' => 'Password too short',
+                            'matches' => 'Password not match',
+                        ]
+                    ],
 
-            ];
+                ];
 
-        $this->form_validation->set_rules($config);
+            $this->form_validation->set_rules($config);
 
-        if (!$this->form_validation->run()) {
-            $this->login();
-        } else {
-            $this->login_function();
+            if (!$this->form_validation->run()) {
+                $this->register();
+            } else {
+
+                $email = $this->input->post('email');
+                $data = [
+                    'name' => htmlspecialchars($this->input->post('name')),
+                    'email' => htmlspecialchars($email),
+                    'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+                    'status' => 'verify',
+                    'photo' => 'default.png',
+                    'role_id' => 2
+
+                ];
+
+                // token
+                $token = base64_encode(random_bytes(40));
+
+                $user_token = [
+                    'email' => $email,
+                    'token' => $token,
+                    'date_created' => time()
+                ];
+
+                $this->users->insertUser($data);
+                $this->db->insert('user_tokens', $user_token);
+
+                $this->send_email($email, $token, 'activate');
+
+                $this->session->set_flashdata('success', 'success');
+                $this->session->set_flashdata('result', 'Successful');
+                $this->session->set_flashdata('action', 'Create an account. Please activate!');
+                return redirect('auth/login');
+            }
         }
-    }
 
-    private function login_function()
-    {
-        $email = $this->input->post('email');
-        $password = $this->input->post('password');
+        public function login_account()
+        {
+            $config =
+                [
+                    [
+                        'field' => 'email',
+                        'label' => 'E-mail',
+                        'rules' => 'required',
+                        'errors' => [
+                            'required' => 'Please enter your E-mail'
+                        ]
+                    ],
+                    [
+                        'field' => 'password',
+                        'label' => 'Password',
+                        'rules' => 'required',
+                        'errors' => [
+                            'required' => 'Please enter a password'
+                        ]
+                    ]
 
-        $user = $this->db->get_where('users', ['email' => $email]);
+                ];
 
-        // Cek Email
-        if ($user->num_rows() > 0) {
+            $this->form_validation->set_rules($config);
 
-            // Cek Password
-            $userData = $user->row_array();
-            if (password_verify($password, $userData['password'])) {
+            if (!$this->form_validation->run()) {
+                $this->login();
+            } else {
+                $this->login_function();
+            }
+        }
 
-                // Cek Aktivasi
-                if ($userData['status'] === 'active') {
-                    $this->session->set_userdata('name', $userData['name']);
-                    $this->session->set_userdata('role', $userData['role_id']);
-                    $this->session->set_userdata('profile', $userData['photo']);
-                    return redirect('auth');
+        private function login_function()
+        {
+            $email = $this->input->post('email');
+            $password = $this->input->post('password');
+
+            $user = $this->db->get_where('users', ['email' => $email]);
+
+            // Cek Email
+            if ($user->num_rows() > 0) {
+
+                // Cek Password
+                $userData = $user->row_array();
+                if (password_verify($password, $userData['password'])) {
+
+                    // Cek Aktivasi
+                    if ($userData['status'] === 'active') {
+                        $this->db->select('id, name, photo, role_id');
+                        $this->db->where('email', $email);
+                        $query = $this->db->get('users');
+
+                        $this->session->set_userdata('userData', $query->result());
+                        return redirect('auth');
+                    } else {
+                        $this->session->set_flashdata('failed', 'Login Failed');
+                        $this->session->set_flashdata('action', 'Your account is not active. Please verify your account!');
+                        return redirect('auth/login');
+                    }
                 } else {
                     $this->session->set_flashdata('failed', 'Login Failed');
-                    $this->session->set_flashdata('action', 'Your account is not active. Please verify your account!');
+                    $this->session->set_flashdata('action', 'Wrong Password!');
                     return redirect('auth/login');
                 }
             } else {
                 $this->session->set_flashdata('failed', 'Login Failed');
-                $this->session->set_flashdata('action', 'Wrong Password!');
+                $this->session->set_flashdata('action', 'This email is not registered');
                 return redirect('auth/login');
             }
-        } else {
-            $this->session->set_flashdata('failed', 'Login Failed');
-            $this->session->set_flashdata('action', 'This email is not registered');
+        }
+
+        public function logout()
+        {
+            $this->session->unset_userdata('userData');
+
+            $this->session->set_flashdata('logout', 'Logout Success');
+            $this->session->set_flashdata('message', 'You"ve been logged out');
             return redirect('auth/login');
         }
-    }
 
-    public function logout()
-    {
-        $this->session->unset_userdata('name', $userData['name']);
-        $this->session->unset_userdata('role', $userData['role_id']);
+        private function send_email($email, $token, $type)
+        {
+            $config = [
+                'protocol' => 'smtp',
+                'smtp_host' => 'ssl://smtp.googlemail.com',
+                'smtp_user' => 'widyablog26@gmail.com',
+                'smtp_pass' => 'zbexthvufrwsqyrn',
+                'smtp_port' => 465,
+                'mailtype' => 'html',
+                'charset' => 'utf-8',
+                'newline' => "\r\n"
+            ];
 
-        $this->session->set_flashdata('logout', 'Logout Success');
-        $this->session->set_flashdata('message', 'You"ve been logged out');
-        return redirect('auth/login');
-    }
+            $this->load->library('email');
+            $this->email->initialize($config);
 
-    private function send_email()
-    {
-        $config = [
-            'protocol' => 'smtp',
-            'smtp_host' => 'ssl://smtp.googlemail.com',
-            'smtp_user' => 'widyablog26@gmail.com',
-            'smtp_pass' => 'zbexthvufrwsqyrn',
-            'smtp_port' => 465,
-            'mailtype' => 'hmtl',
-            'charset' => 'utf-8',
-            'newline' => "\r\n"
-        ];
+            $this->email->from('widyablog26@gmail.com', 'Admin Widya Blog');
+            $this->email->to($email);
 
-        $this->load->library('email');
-        $this->email->initialize($config);
+            if ($type === 'activate') {
+                $this->email->subject('Account Activation');
+                $this->email->message('Click this link to activate your account: 
+                <a href="' . base_url() . 'auth/activate?email=' . $email . '&token='
+                    . urlencode($token) . '">Activate</a>');
+            }
 
-        $this->email->from('widyablog26@gmail.com', 'Admin Widya Blog');
-        $this->email->to('ranggawidyasastra@gmail.com');
-        $this->email->subject('Test email');
-        $this->email->message('Test email with google smtp');
+            $this->email->send();
+        }
 
-        if ($this->email->send()) {
-            echo "Success";
-            die;
-        } else {
-            echo $this->email->print_debugger();
-            die;
+        public function activate()
+        {
+            $email = $this->input->get('email');
+            $token = $this->input->get('token');
+
+            // Check Email
+            $user_email = $this->db->get_where('user_tokens', ['email' => $email])
+                ->row_array();
+
+            if ($user_email) {
+                // Check Token
+                $user_token = $this->db->get_where('user_tokens', ['token' => $token])
+                    ->row_array();
+
+                if ($user_token) {
+                    // Check Waktu
+                    if (time() - $user_token['date_created'] < (60 * 60 * 24)) {
+                        $this->db->set('status', 'active');
+                        $this->db->where('email', $email);
+                        $this->db->update('users');
+
+                        $this->db->delete('user_tokens', ['token' => $token]);
+
+                        $this->session->set_flashdata('success', 'success');
+                        $this->session->set_flashdata('result', 'Successful');
+                        $this->session->set_flashdata('action', 'Your Account has been activated. Please Login!');
+                        return redirect('auth/login');
+                    } else {
+                        $this->db->delete('users', ['email' => $email]);
+                        $this->db->delete('user_tokens', ['token' => $token]);
+
+                        $this->session->set_flashdata('failed', 'Activation Failed');
+                        $this->session->set_flashdata('action', 'Activation Failed! Token Expired');
+                        return redirect('auth/login');
+                    }
+                } else {
+                    $this->session->set_flashdata('failed', 'Activation Failed');
+                    $this->session->set_flashdata('action', 'Activation Failed! Wrong Token');
+                    return redirect('auth/login');
+                }
+            } else {
+                $this->session->set_flashdata('failed', 'Activation Failed');
+                $this->session->set_flashdata('action', 'Activation Failed! Wrong Email');
+                return redirect('auth/login');
+            }
         }
     }
-}

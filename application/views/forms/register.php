@@ -69,6 +69,9 @@
                                 <hr>
                             </form>
                             <div class="text-center">
+                                <div class="mb-0">
+                                    <a class="small" href="#">Forgot Password?</a>
+                                </div>
                                 <a class="small" href="<?= base_url(); ?>auth/login/">Already have an account? Login!</a>
                             </div>
                         </div>
