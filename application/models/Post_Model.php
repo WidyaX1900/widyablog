@@ -32,6 +32,8 @@ class Post_Model extends CI_Model
     public function getPostNotById($id)
     {
         $this->db->where('id !=', $id);
+        $this->db->limit(3);
+        $this->db->order_by('id', 'desc');
         $query = $this->db->get('posts');
 
         return $query->result();

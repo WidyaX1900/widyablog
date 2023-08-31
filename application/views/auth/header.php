@@ -66,6 +66,79 @@
                     </div>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link collapsed" href="<?= base_url(); ?>auth/users/">
+                        <span class="material-symbols-rounded">
+                            person
+                        </span>
+                        <span>Users</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Custom Components:</h6>
+                            <a class="collapse-item" href="buttons.html">Buttons</a>
+                            <a class="collapse-item" href="cards.html">Cards</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="<?= base_url(); ?>auth/logout/">
+                        <span class="material-symbols-rounded">
+                            logout
+                        </span>
+                        <span>Logout</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Custom Components:</h6>
+                            <a class="collapse-item" href="buttons.html">Buttons</a>
+                            <a class="collapse-item" href="cards.html">Cards</a>
+                        </div>
+                    </div>
+                </li>
+            <?php elseif ($title === 'post') : ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= base_url(); ?>auth/">
+                        <span class="material-symbols-rounded">
+                            home
+                        </span>
+                        <span>Dashboard</span></a>
+                </li>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item active">
+                    <a class="nav-link collapsed" href="<?= base_url(); ?>auth/post/">
+                        <span class="material-symbols-rounded">
+                            edit
+                        </span>
+                        <span>Post</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Custom Components:</h6>
+                            <a class="collapse-item" href="buttons.html">Buttons</a>
+                            <a class="collapse-item" href="cards.html">Cards</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="<?= base_url(); ?>auth/users/">
+                        <span class="material-symbols-rounded">
+                            person
+                        </span>
+                        <span>Users</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Custom Components:</h6>
+                            <a class="collapse-item" href="buttons.html">Buttons</a>
+                            <a class="collapse-item" href="cards.html">Cards</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link collapsed" href="<?= base_url(); ?>auth/logout/">
                         <span class="material-symbols-rounded">
                             logout
@@ -93,12 +166,27 @@
                 <hr class="sidebar-divider">
 
                 <!-- Nav Item - Pages Collapse Menu -->
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link collapsed" href="<?= base_url(); ?>auth/post/">
                         <span class="material-symbols-rounded">
                             edit
                         </span>
                         <span>Post</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Custom Components:</h6>
+                            <a class="collapse-item" href="buttons.html">Buttons</a>
+                            <a class="collapse-item" href="cards.html">Cards</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link collapsed" href="<?= base_url(); ?>auth/users/">
+                        <span class="material-symbols-rounded">
+                            person
+                        </span>
+                        <span>Users</span>
                     </a>
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
@@ -223,7 +311,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $this->session->userdata('userData')[0]->name; ?></span>
-                                <img class="img-profile rounded-circle" src="<?= base_url('assets/img/'); ?><?= $this->session->userdata('profile'); ?>">
+                                <img class="img-profile rounded-circle" src="<?= base_url('assets/img/'); ?><?= $this->session->userdata('userData')[0]->photo; ?>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

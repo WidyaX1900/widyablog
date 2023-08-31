@@ -8,6 +8,7 @@ class Blog extends CI_Controller
         parent::__construct();
         $this->load->model('category_model', 'categories');
         $this->load->model('post_model', 'posts');
+        $this->load->model('comments_model', 'comments');
     }
 
     public function index()
@@ -29,6 +30,9 @@ class Blog extends CI_Controller
         $data['suggest'] = $this->posts->getPostNotById($id);
 
         $data['title'] = $this->posts->getPostById($id)[0]->title;
+
+        $data['comments'] = $this->comments->getComments($id);
+        $data['commentators'] = $this->comments->commentedUser($id);
 
         $this->load->view('templates/header', $data);
         $this->load->view('blog/single', $data);

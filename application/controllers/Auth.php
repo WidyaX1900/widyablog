@@ -257,17 +257,17 @@ a<?php
             $email = $this->input->get('email');
             $token = $this->input->get('token');
 
-            // Check Email
+            // Email Check
             $user_email = $this->db->get_where('user_tokens', ['email' => $email])
                 ->row_array();
 
             if ($user_email) {
-                // Check Token
+                // Token Check
                 $user_token = $this->db->get_where('user_tokens', ['token' => $token])
                     ->row_array();
 
                 if ($user_token) {
-                    // Check Waktu
+                    // Time Check
                     if (time() - $user_token['date_created'] < (60 * 60 * 24)) {
                         $this->db->set('status', 'active');
                         $this->db->where('email', $email);
@@ -297,5 +297,20 @@ a<?php
                 $this->session->set_flashdata('action', 'Activation Failed! Wrong Email');
                 return redirect('auth/login');
             }
+        }
+
+        public function users()
+        {
+            if (!$this->session->userdata('userData')) {
+                return redirect('auth/login');
+                die;
+            }
+
+            $data['title'] = 'user';
+            $data['users'] = $this->users->getUsers();
+
+            $this->load->view('auth/header', $data);
+            $this->load->view('auth/users', $data);
+            $this->load->view('auth/footer');
         }
     }

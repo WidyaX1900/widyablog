@@ -1,7 +1,11 @@
 <section class="container single-content">
     <section class="row">
-
         <section class="col-lg-9 content">
+            <?php if ($this->session->flashdata('success')) : ?>
+                <div class="alert alert-success" role="alert">
+                    <strong><?= $this->session->flashdata('result'); ?></strong> <?= $this->session->flashdata('action'); ?>
+                </div>
+            <?php endif; ?>
             <header>
                 <h1 class="text-center"><?= $post[0]->title; ?></h1>
             </header>
@@ -39,31 +43,30 @@
         <header class="mb-4">
             <h5>Comments</h5>
         </header>
-        <div class=" row user-comment mb-4">
-            <div class="col-lg-1">
-                <img src="<?= base_url('assets/'); ?>img/default.png" alt="default profile" width="50px">
+        <?php $commentIndex = 0; ?>
+        <?php if (count($comments) == 0) : ?>
+            <div class=" row user-comment mb-4">
+                <h6>There's no comment in this post</h6>
             </div>
-            <div class="col-lg-7 username">
-                <h6>Alex Mercer</h6>
-                <div class="comment-desc">
-                    <p>Great Content! I really like it you have create an amazing content</p>
+        <?php else : ?>
+            <?php foreach ($comments as $comment) : ?>
+                <div class=" row user-comment mb-4">
+                    <div class="col-lg-1">
+                        <img src="<?= base_url('assets/img/'); ?>default.png" alt="default profile" width="50px">
+                    </div>
+                    <div class="col-lg-7 username">
+                        <h6><?= $commentators[$commentIndex]->name; ?></h6>
+                        <div class="comment-desc">
+                            <p><?= $comment->comment; ?></p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class=" row user-comment mb-4">
-            <div class="col-lg-1">
-                <img src="<?= base_url('assets/'); ?>img/default.png" alt="default profile" width="50px">
-            </div>
-            <div class="col-lg-7 username">
-                <h6>Komang Surya Gunawan</h6>
-                <div class="comment-desc">
-                    <p>Saya sangat suka konten ini. Bermanfaat dan informatif</p>
-                </div>
-            </div>
-        </div>
-        <form action="" method="post" class="mt-5 col-lg-7">
+                <?php $commentIndex++; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
+        <form action="<?= base_url(); ?>comment/store/<?= $post[0]->id; ?>" method="post" class="mt-5 col-lg-7">
             <div class="input-group mb-3">
-                <input type="text" class="form-control p-2" placeholder="Comment as Rangga Widya..." aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <input type="text" class="form-control p-2" placeholder="Comment as Rangga Widya..." name="comment">
                 <button type="submit" class="btn btn-primary btn-sm" id="basic-addon2">Send</button>
             </div>
         </form>
