@@ -70,7 +70,7 @@
                             </form>
                             <div class="text-center">
                                 <div class="mb-0">
-                                    <a class="small" href="#">Forgot Password?</a>
+                                    <a class="small" href="<?= base_url(); ?>auth/forgot_form">Forgot Password?</a>
                                 </div>
                                 <a class="small" href="<?= base_url(); ?>auth/login/">Already have an account? Login!</a>
                             </div>

@@ -20,4 +20,15 @@ class User_Model extends CI_Model
 
         return $query->result();
     }
+
+    public function userRoles()
+    {
+        $this->db->select('role_id, roles.name');
+        $this->db->from('users');
+        $this->db->join('roles', 'role_id=roles.id');
+
+        $query = $this->db->get();
+
+        return $query->result();
+    }
 }

@@ -43,32 +43,38 @@
         <header class="mb-4">
             <h5>Comments</h5>
         </header>
-        <?php $commentIndex = 0; ?>
-        <?php if (count($comments) == 0) : ?>
-            <div class=" row user-comment mb-4">
-                <h6>There's no comment in this post</h6>
+        <?php if (!$this->session->userdata('userData')) : ?>
+            <div class="mb-4">
+                <h6>You must log in to comment this post</h6>
             </div>
         <?php else : ?>
-            <?php foreach ($comments as $comment) : ?>
+            <?php $commentIndex = 0; ?>
+            <?php if (count($comments) == 0) : ?>
                 <div class=" row user-comment mb-4">
-                    <div class="col-lg-1">
-                        <img src="<?= base_url('assets/img/'); ?>default.png" alt="default profile" width="50px">
-                    </div>
-                    <div class="col-lg-7 username">
-                        <h6><?= $commentators[$commentIndex]->name; ?></h6>
-                        <div class="comment-desc">
-                            <p><?= $comment->comment; ?></p>
+                    <h6>There's no comment in this post</h6>
+                </div>
+            <?php else : ?>
+                <?php foreach ($comments as $comment) : ?>
+                    <div class=" row user-comment mb-4">
+                        <div class="col-lg-1">
+                            <img src="<?= base_url('assets/img/'); ?>default.png" alt="default profile" width="50px">
+                        </div>
+                        <div class="col-lg-7 username">
+                            <h6><?= $commentators[$commentIndex]->name; ?></h6>
+                            <div class="comment-desc">
+                                <p><?= $comment->comment; ?></p>
+                            </div>
                         </div>
                     </div>
+                    <?php $commentIndex++; ?>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            <form action="<?= base_url(); ?>comment/store/<?= $post[0]->id; ?>" method="post" class="mt-5 col-lg-7">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control p-2" placeholder="Comment as Rangga Widya..." name="comment">
+                    <button type="submit" class="btn btn-primary btn-sm" id="basic-addon2">Send</button>
                 </div>
-                <?php $commentIndex++; ?>
-            <?php endforeach; ?>
+            </form>
         <?php endif; ?>
-        <form action="<?= base_url(); ?>comment/store/<?= $post[0]->id; ?>" method="post" class="mt-5 col-lg-7">
-            <div class="input-group mb-3">
-                <input type="text" class="form-control p-2" placeholder="Comment as Rangga Widya..." name="comment">
-                <button type="submit" class="btn btn-primary btn-sm" id="basic-addon2">Send</button>
-            </div>
-        </form>
     </section>
 </section>

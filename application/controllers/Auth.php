@@ -247,6 +247,11 @@ a<?php
                 $this->email->message('Click this link to activate your account: 
                 <a href="' . base_url() . 'auth/activate?email=' . $email . '&token='
                     . urlencode($token) . '">Activate</a>');
+            } else if ($type === 'forgot') {
+                $this->email->subject('Reset Password');
+                $this->email->message('Click this link to reset your password: 
+                <a href="' . base_url() . 'auth/reset?email=' . $email . '&token='
+                    . urlencode($token) . '">Reset</a>');
             }
 
             $this->email->send();
@@ -308,9 +313,104 @@ a<?php
 
             $data['title'] = 'user';
             $data['users'] = $this->users->getUsers();
+            $data['user_role'] = $this->users->userRoles();
 
             $this->load->view('auth/header', $data);
             $this->load->view('auth/users', $data);
             $this->load->view('auth/footer');
+        }
+
+        public function forgot_form()
+        {
+            $this->load->view('auth/forgot_form');
+        }
+
+        public function forgot_password()
+        {
+            $email = $this->input->post('email');
+
+            // Email Check
+            $user_email = $this->db->get_where('users', ['email' => $email])->row_array();
+
+            if ($user_email) {
+                //Create a Token 
+                $token = base64_encode(random_bytes(40));
+
+                $user_token = [
+                    'email' => $email,
+                    'token' => $token,
+                    'date_created' => 0
+                ];
+
+                $this->db->insert('user_tokens', $user_token);
+
+                $this->send_email($email, $token, 'forgot');
+
+                $this->session->set_flashdata('success', 'success');
+                $this->session->set_flashdata('result', 'Successful');
+                $this->session->set_flashdata('action', 'Send Reset Password Request. Please check your email');
+                return redirect('auth/login');
+            } else {
+                $this->session->set_flashdata('failed', 'Reset Failed');
+                $this->session->set_flashdata('action', 'This email is not registered');
+                return redirect('auth/login');
+            }
+        }
+
+        public function reset()
+        {
+            $email = $this->input->get('email');
+            $token = $this->input->get('token');
+
+            // Check Email
+            $user_email = $this->db->get_where('user_tokens', ['email' => $email])->row_array();
+
+            if ($user_email) {
+                // Check Token
+                if ($token === $user_email['token']) {
+                    //  Direct to Password reset form
+                    $this->session->set_userdata('email', $email);
+                    $this->load->view('auth/reset');
+                } else {
+                    $this->session->set_flashdata('failed', 'Reset Failed');
+                    $this->session->set_flashdata('action', 'Reset Failed! Wrong Token');
+                    return redirect('auth/login');
+                }
+            } else {
+                $this->session->set_flashdata('failed', 'Reset Failed');
+                $this->session->set_flashdata('action', 'Reset Failed! Wrong Email');
+                return redirect('auth/login');
+            }
+        }
+
+        public function reset_password()
+        {
+            $email = $this->session->userdata('email');
+            $password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
+
+            // Check Email
+            $user_email = $this->db->get_where('users', ['email' => $email])->row_array();
+
+            if ($user_email) {
+                // Change Password
+                $this->db->set('password', $password);
+                $this->db->where('email', $email);
+                $this->db->update('users');
+
+                $this->db->delete('user_tokens', ['email' => $email]);
+
+                $this->session->unset_userdata('email');
+
+                $this->session->set_flashdata('success', 'success');
+                $this->session->set_flashdata('result', 'Successful');
+                $this->session->set_flashdata('action', 'Reset Password. Please login');
+                return redirect('auth/login');
+            } else {
+                $this->session->set_flashdata('failed', 'Reset Failed');
+                $this->session->set_flashdata('action', 'Reset Failed! This email is not registered');
+
+                $this->session->unset_userdata('email');
+                return redirect('auth/login');
+            }
         }
     }
