@@ -31,4 +31,21 @@ class User_Model extends CI_Model
 
         return $query->result();
     }
+
+    public function getUserById($id)
+    {
+        $this->db->where('id', $id);
+        $query = $this->db->get('users');
+
+        return $query->result();
+    }
+
+    public function getRoleById($role_id)
+    {
+        $this->db->select('name');
+        $this->db->where('id', $role_id);
+        $query = $this->db->get('roles');
+
+        return $query->result();
+    }
 }

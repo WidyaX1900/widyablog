@@ -413,4 +413,27 @@ a<?php
                 return redirect('auth/login');
             }
         }
+
+        public function show($id)
+        {
+            $user = $this->users->getUserById($id);
+
+            $data['title'] = 'user';
+            $data['user'] = $user;
+            $data['role'] = $this->users->getRoleById($user[0]->role_id);
+
+            $this->load->view('auth/header', $data);
+            $this->load->view('auth/user_info', $data);
+            $this->load->view('auth/footer');
+        }
+
+        public function edit($id)
+        {
+            $data['title'] = 'user';
+            $data['user'] = $this->users->getUserById($id);
+
+            $this->load->view('auth/header', $data);
+            $this->load->view('auth/edit_user', $data);
+            $this->load->view('auth/footer');
+        }
     }

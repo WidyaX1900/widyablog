@@ -1,5 +1,5 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">All Posts</h1>
+    <h1 class="h3 mb-0 text-gray-800">All Users</h1>
 </div>
 
 <div class="mt-2">
@@ -30,9 +30,9 @@
                     <td><?= $user->status; ?></td>
                     <td><?= $user_role[$userIndex]->name; ?></td>
                     <td>
-                        <a href="#" class="btn btn-primary btn-sm" target="_blank">View</a>
-                        <a href="#" class="btn btn-warning btn-sm mx-3">Edit</a>
-                        <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                        <a href="<?= base_url(); ?>auth/show/<?= $user->id; ?>" class="btn btn-primary btn-sm">View</a>
+                        <a href="<?= base_url(); ?>auth/edit/<?= $user->id; ?>" class="btn btn-warning btn-sm mx-3">Edit</a>
+                        <a href="#" class="btn btn-danger btn-sm">Block</a>
                     </td>
                 </tr>
                 <?php $userIndex++; ?>
