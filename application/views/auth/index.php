@@ -3,6 +3,11 @@
     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
 </div>
 
+<?php if ($this->session->flashdata('success')) : ?>
+    <div class="alert alert-success" role="alert">
+        <strong><?= $this->session->flashdata('result'); ?></strong> <?= $this->session->flashdata('action'); ?>
+    </div>
+<?php endif; ?>
 <!-- Content Row -->
 <div class="row">
     <!-- Earnings (Monthly) Card Example -->

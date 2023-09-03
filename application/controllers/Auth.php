@@ -474,7 +474,7 @@ a<?php
             $this->session->set_flashdata('success', 'success');
             $this->session->set_flashdata('result', 'Successful');
             $this->session->set_flashdata('action', 'Update user');
-            return redirect('auth');
+            return redirect('auth/users');
         }
 
         public function update_profile($id)

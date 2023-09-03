@@ -32,7 +32,6 @@
                     <td>
                         <a href="<?= base_url(); ?>auth/show/<?= $user->id; ?>" class="btn btn-primary btn-sm">View</a>
                         <a href="<?= base_url(); ?>auth/edit/<?= $user->id; ?>" class="btn btn-warning btn-sm mx-3">Edit</a>
-                        <a href="#" class="btn btn-danger btn-sm">Block</a>
                     </td>
                 </tr>
                 <?php $userIndex++; ?>

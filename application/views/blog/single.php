@@ -57,7 +57,7 @@
                 <?php foreach ($comments as $comment) : ?>
                     <div class=" row user-comment mb-4">
                         <div class="col-lg-1">
-                            <img src="<?= base_url('assets/img/'); ?>default.png" alt="default profile" width="50px">
+                            <img src="<?= base_url('assets/user/'); ?>default.png" alt="default profile" width="50px">
                         </div>
                         <div class="col-lg-7 username">
                             <h6><?= $commentators[$commentIndex]->name; ?></h6>

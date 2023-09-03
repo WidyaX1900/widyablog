@@ -87,4 +87,13 @@ class Post_Model extends CI_Model
     {
         $this->db->delete('posts', ['id' => $id]);
     }
+
+    public function getPostByCategory($category_id)
+    {
+        $this->db->where('category_id', $category_id);
+        $this->db->order_by('id', 'desc');
+        $query = $this->db->get('posts');
+
+        return $query->result();
+    }
 }

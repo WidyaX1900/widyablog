@@ -6,24 +6,33 @@
     </div>
 </section>
 <section class="container mt-4">
+    <?php if ($this->session->flashdata('failed')) : ?>
+        <div class="alert alert-danger" role="alert">
+            <?= $this->session->flashdata('failed'); ?>
+        </div>
+    <?php endif; ?>
     <div class="row blogs">
         <div class="col-lg-9">
-            <?php foreach ($post as $posts) : ?>
-                <div class="blog-post row mb-5">
-                    <div class="col-lg-6 thumbnail">
-                        <img src="<?= base_url('assets/'); ?>thumbnail/<?= $posts->thumbnail; ?>" alt="thumbnail" class="rounded">
+            <?php if (count($post) === 0) : ?>
+                <h2>There's no post with <?= $current[0]->name; ?> Category</h2>
+            <?php else : ?>
+                <?php foreach ($post as $posts) : ?>
+                    <div class="blog-post row mb-5">
+                        <div class="col-lg-6 thumbnail">
+                            <img src="<?= base_url('assets/'); ?>thumbnail/<?= $posts->thumbnail; ?>" alt="thumbnail" class="rounded">
+                        </div>
+                        <div class="col-lg-6 blog-desc">
+                            <a href="<?= base_url(); ?>blog/single/<?= $posts->id; ?>">
+                                <h3><?= $posts->title; ?></h3>
+                            </a>
+                            <small>Published Date: <?= $posts->date; ?></small>
+                            <p class="mt-3">
+                                <?= $posts->content; ?>
+                            </p>
+                        </div>
                     </div>
-                    <div class="col-lg-6 blog-desc">
-                        <a href="<?= base_url(); ?>blog/single/<?= $posts->id; ?>">
-                            <h3><?= $posts->title; ?></h3>
-                        </a>
-                        <small>Published Date: <?= $posts->date; ?></small>
-                        <p class="mt-3">
-                            <?= $posts->content; ?>
-                        </p>
-                    </div>
-                </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
         <div class="col-lg-3">
             <div class="blog-category">
@@ -31,7 +40,7 @@
                 <ul>
                     <?php foreach ($category as $categories) : ?>
                         <li>
-                            <a href="" class="text-decoration-none"><?= $categories->name; ?></a>
+                            <a href="<?= base_url(); ?>blog/category?category=<?= $categories->id; ?>" class="text-decoration-none"><?= $categories->name; ?></a>
                         </li>
                     <?php endforeach; ?>
                 </ul>

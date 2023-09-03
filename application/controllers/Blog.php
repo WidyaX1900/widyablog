@@ -19,7 +19,7 @@ class Blog extends CI_Controller
         $data['category'] = $this->categories->getCategory();
 
         $this->load->view('templates/header', $data);
-        $this->load->view('blog/index');
+        $this->load->view('blog/index', $data);
         $this->load->view('templates/footer');
     }
 
@@ -245,7 +245,7 @@ class Blog extends CI_Controller
         }
 
         if ($this->input->get('keyword') === '') {
-            redirect('/blog');
+            redirect('blog/');
         } else {
             $data['title'] = 'Blogs';
             $data['page'] = 'blog';
@@ -253,9 +253,15 @@ class Blog extends CI_Controller
             $data['post'] = $this->posts->searchPost($this->input->get('keyword'));
             $data['category'] = $this->categories->getCategory();
 
-            $this->load->view('templates/header', $data);
-            $this->load->view('blog/index');
-            $this->load->view('templates/footer');
+            if (count($data['post']) > 0) {
+                $this->load->view('templates/header', $data);
+                $this->load->view('blog/index', $data);
+                $this->load->view('templates/footer');
+            } else {
+
+                $this->session->set_flashdata('failed', 'Post Not Found!');
+                redirect('blog/');
+            }
         }
     }
 
@@ -308,5 +314,25 @@ class Blog extends CI_Controller
         $this->session->set_flashdata('result', 'Successful');
         $this->session->set_flashdata('action', 'Delete a Post');
         return redirect('/auth/post/');
+    }
+
+    public function category()
+    {
+        $category_id = $this->input->get('category');
+
+        $data['title'] = 'Blogs';
+        $data['page'] = 'blog';
+        $data['post'] = $this->posts->getPostByCategory($category_id);
+        $data['category'] = $this->categories->getCategory();
+        $data['current'] = $this->categories->getCategoryById($category_id);
+
+        if ($category_id === '1') {
+            return redirect('blog/');
+            die;
+        }
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('blog/index', $data);
+        $this->load->view('templates/footer');
     }
 }

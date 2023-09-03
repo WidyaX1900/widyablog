@@ -35,24 +35,14 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">About</a>
                     </li>
-                <?php elseif ($page === 'blog') : ?>
-                    <li class=" nav-item">
-                        <a class="nav-link" aria-current="page" href="<?= base_url(); ?>">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active fw-bold" href="<?= base_url(); ?>blog/">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
                 <?php else : ?>
                     <li class=" nav-item">
                         <a class="nav-link" aria-current="page" href="<?= base_url(); ?>">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Blog</a>
+                        <a class="nav-link fw-bold active" href="<?= base_url(); ?>blog/">Blog</a>
                     </li>
-                    <li class="nav-item active fw-bold">
+                    <li class="nav-item">
                         <a class="nav-link" href="#">About</a>
                     </li>
                 <?php endif; ?>
