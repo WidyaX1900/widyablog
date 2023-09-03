@@ -71,7 +71,7 @@
             <?php endif; ?>
             <form action="<?= base_url(); ?>comment/store/<?= $post[0]->id; ?>" method="post" class="mt-5 col-lg-7">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control p-2" placeholder="Comment as Rangga Widya..." name="comment">
+                    <input type="text" class="form-control p-2" placeholder="Comment as <?= $this->session->userdata('userData')[0]->name; ?>..." name="comment">
                     <button type="submit" class="btn btn-primary btn-sm" id="basic-addon2">Send</button>
                 </div>
             </form>

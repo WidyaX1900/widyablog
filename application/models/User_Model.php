@@ -13,9 +13,10 @@ class User_Model extends CI_Model
         $this->db->insert('users', $data);
     }
 
-    public function getUsers()
+    public function getUsers($id)
     {
         $this->db->select('id, name, email, status, role_id');
+        $this->db->where('id !=', $id);
         $query = $this->db->get('users');
 
         return $query->result();
@@ -47,5 +48,11 @@ class User_Model extends CI_Model
         $query = $this->db->get('roles');
 
         return $query->result();
+    }
+
+    public function updateUser($id, $data)
+    {
+        $this->db->where('id', $id);
+        $this->db->update('users', $data);
     }
 }

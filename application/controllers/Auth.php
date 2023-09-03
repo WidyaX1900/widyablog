@@ -8,6 +8,7 @@ a<?php
             parent::__construct();
             $this->load->model('post_model', 'posts');
             $this->load->model('user_model', 'users');
+            $this->load->model('comments_model', 'comments');
         }
 
         public function index()
@@ -19,6 +20,7 @@ a<?php
 
             $data['title'] = 'index';
             $data['post'] = $this->posts->postCount();
+            $data['comments'] = $this->comments->getCommentsCount();
 
             $this->load->view('auth/header', $data);
             $this->load->view('auth/index');
@@ -311,8 +313,13 @@ a<?php
                 die;
             }
 
+            if ($this->session->userdata('userData')[0]->role_id !== '1') {
+                echo '404 Page Not Found';
+                die;
+            }
+
             $data['title'] = 'user';
-            $data['users'] = $this->users->getUsers();
+            $data['users'] = $this->users->getUsers($this->session->userdata('userData')[0]->id);
             $data['user_role'] = $this->users->userRoles();
 
             $this->load->view('auth/header', $data);
@@ -435,5 +442,85 @@ a<?php
             $this->load->view('auth/header', $data);
             $this->load->view('auth/edit_user', $data);
             $this->load->view('auth/footer');
+        }
+
+        public function edit_profile($id)
+        {
+            $data['title'] = 'user';
+            $data['user'] = $this->users->getUserById($id);
+
+            $this->load->view('auth/header', $data);
+            $this->load->view('auth/edit_profile', $data);
+            $this->load->view('auth/footer');
+        }
+
+        public function update($id)
+        {
+            // If user upload new photo
+            if ($_FILES['photo']['error'] === 0) {
+                $filename = $this->upload();
+            } else {
+                $filename = $this->input->post('oldPhoto');
+            }
+
+            $data = [
+                'name' => htmlspecialchars($this->input->post('name')),
+                'photo' => $filename,
+                'role_id' => $this->input->post('role_id')
+            ];
+
+            $this->users->updateUser($id, $data);
+
+            $this->session->set_flashdata('success', 'success');
+            $this->session->set_flashdata('result', 'Successful');
+            $this->session->set_flashdata('action', 'Update user');
+            return redirect('auth');
+        }
+
+        public function update_profile($id)
+        {
+            // If user upload new photo
+            if ($_FILES['photo']['error'] === 0) {
+                $filename = $this->upload();
+            } else {
+                $filename = $this->input->post('oldPhoto');
+            }
+
+            $data = [
+                'name' => htmlspecialchars($this->input->post('name')),
+                'photo' => $filename
+            ];
+
+            $this->users->updateUser($id, $data);
+
+            $this->session->set_flashdata('success', 'success');
+            $this->session->set_flashdata('result', 'Successful');
+            $this->session->set_flashdata('action', 'Update profile');
+            return redirect('auth');
+        }
+
+        private function upload()
+        {
+            $fileName = '';
+
+            $config['upload_path'] = './assets/user/';
+            $config['allowed_types'] = 'jpg|png|jpeg';
+            $config['encrypt_name'] = true;
+            $config['file_ext_tolower'] = true;
+
+            $this->upload->initialize($config);
+
+            if ($this->upload->do_upload('photo')) {
+                $fileName = $this->upload->data('file_name');
+            } else {
+                $data['error'] = $this->upload->display_errors();
+                $data['title'] = 'Error Page';
+
+                $this->load->view('templates/header', $data);
+                $this->load->view('errors/error', $data);
+                $this->load->view('templates/footer');
+            }
+
+            return $fileName;
         }
     }

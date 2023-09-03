@@ -65,21 +65,23 @@
                         </div>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="<?= base_url(); ?>auth/users/">
-                        <span class="material-symbols-rounded">
-                            person
-                        </span>
-                        <span>Users</span>
-                    </a>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Custom Components:</h6>
-                            <a class="collapse-item" href="buttons.html">Buttons</a>
-                            <a class="collapse-item" href="cards.html">Cards</a>
+                <?php if ($this->session->userdata('userData')[0]->role_id === '1') : ?>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="<?= base_url(); ?>auth/users/">
+                            <span class="material-symbols-rounded">
+                                person
+                            </span>
+                            <span>Users</span>
+                        </a>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <h6 class="collapse-header">Custom Components:</h6>
+                                <a class="collapse-item" href="buttons.html">Buttons</a>
+                                <a class="collapse-item" href="cards.html">Cards</a>
+                            </div>
                         </div>
-                    </div>
-                </li>
+                    </li>
+                <?php endif; ?>
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="<?= base_url(); ?>auth/logout/">
                         <span class="material-symbols-rounded">
@@ -123,21 +125,23 @@
                         </div>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="<?= base_url(); ?>auth/users/">
-                        <span class="material-symbols-rounded">
-                            person
-                        </span>
-                        <span>Users</span>
-                    </a>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Custom Components:</h6>
-                            <a class="collapse-item" href="buttons.html">Buttons</a>
-                            <a class="collapse-item" href="cards.html">Cards</a>
+                <?php if ($this->session->userdata('userData')[0]->role_id === '1') : ?>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="<?= base_url(); ?>auth/users/">
+                            <span class="material-symbols-rounded">
+                                person
+                            </span>
+                            <span>Users</span>
+                        </a>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <h6 class="collapse-header">Custom Components:</h6>
+                                <a class="collapse-item" href="buttons.html">Buttons</a>
+                                <a class="collapse-item" href="cards.html">Cards</a>
+                            </div>
                         </div>
-                    </div>
-                </li>
+                    </li>
+                <?php endif; ?>
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="<?= base_url(); ?>auth/logout/">
                         <span class="material-symbols-rounded">
@@ -181,21 +185,23 @@
                         </div>
                     </div>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link collapsed" href="<?= base_url(); ?>auth/users/">
-                        <span class="material-symbols-rounded">
-                            person
-                        </span>
-                        <span>Users</span>
-                    </a>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Custom Components:</h6>
-                            <a class="collapse-item" href="buttons.html">Buttons</a>
-                            <a class="collapse-item" href="cards.html">Cards</a>
+                <?php if ($this->session->userdata('userData')[0]->role_id === '1') : ?>
+                    <li class="nav-item active">
+                        <a class="nav-link collapsed" href="<?= base_url(); ?>auth/users/">
+                            <span class="material-symbols-rounded">
+                                person
+                            </span>
+                            <span>Users</span>
+                        </a>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <h6 class="collapse-header">Custom Components:</h6>
+                                <a class="collapse-item" href="buttons.html">Buttons</a>
+                                <a class="collapse-item" href="cards.html">Cards</a>
+                            </div>
                         </div>
-                    </div>
-                </li>
+                    </li>
+                <?php endif; ?>
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="<?= base_url(); ?>auth/logout/">
                         <span class="material-symbols-rounded">
@@ -309,7 +315,7 @@
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Visit Site</span>
                             </a>
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="<?= base_url(); ?>auth/edit_profile/<?= $this->session->userdata('userData')[0]->id; ?>" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $this->session->userdata('userData')[0]->name; ?></span>
                                 <img class="img-profile rounded-circle" src="<?= base_url('assets/user/'); ?><?= $this->session->userdata('userData')[0]->photo; ?>">
                             </a>

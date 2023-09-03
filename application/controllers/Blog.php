@@ -46,6 +46,13 @@ class Blog extends CI_Controller
             die;
         }
 
+        if (
+            $this->session->userdata('userData')[0]->role_id !== '1' && $this->session->userdata('userData')[0]->role_id !== '2'
+        ) {
+            echo '404 Page Not Found';
+            die;
+        }
+
         $data['category'] = $this->categories->getCategory();
 
         $this->load->view('blog/create', $data);
@@ -55,6 +62,13 @@ class Blog extends CI_Controller
     {
         if (!$this->session->userdata('userData')) {
             return redirect('auth/login');
+            die;
+        }
+
+        if (
+            $this->session->userdata('userData')[0]->role_id !== '1' && $this->session->userdata('userData')[0]->role_id !== '2'
+        ) {
+            echo '404 Page Not Found';
             die;
         }
 
@@ -137,6 +151,13 @@ class Blog extends CI_Controller
             die;
         }
 
+        if (
+            $this->session->userdata('userData')[0]->role_id !== '1' && $this->session->userdata('userData')[0]->role_id !== '2'
+        ) {
+            echo '404 Page Not Found';
+            die;
+        }
+
         $query = $this->posts->getPostById($id);
 
         $data['post'] = $query;
@@ -154,6 +175,14 @@ class Blog extends CI_Controller
             return redirect('auth/login');
             die;
         }
+
+        if (
+            $this->session->userdata('userData')[0]->role_id !== '1' && $this->session->userdata('userData')[0]->role_id !== '2'
+        ) {
+            echo '404 Page Not Found';
+            die;
+        }
+
 
         $file = $this->input->post('defaultThumbnail');
 
@@ -237,6 +266,13 @@ class Blog extends CI_Controller
             die;
         }
 
+        if (
+            $this->session->userdata('userData')[0]->role_id !== '1' && $this->session->userdata('userData')[0]->role_id !== '2'
+        ) {
+            echo '404 Page Not Found';
+            die;
+        }
+
         $data['title'] = 'post';
         $data['posts'] = $this->posts->getPostById($id);
 
@@ -249,6 +285,13 @@ class Blog extends CI_Controller
     {
         if (!$this->session->userdata('userData')) {
             return redirect('auth/login');
+            die;
+        }
+
+        if (
+            $this->session->userdata('userData')[0]->role_id !== '1' && $this->session->userdata('userData')[0]->role_id !== '2'
+        ) {
+            echo '404 Page Not Found';
             die;
         }
 
